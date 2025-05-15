@@ -35,7 +35,19 @@ const show = (req, res) => {
 };
 
 const store = (req, res) => {
-    res.json('creazione nuovo post');
+    const {titolo, contenuto, immagine, tags} = req.body;
+
+    let newId = 0;
+    for (post of posts) {
+        if (post.id > newId) newId = post.id;
+    };
+
+    const newPost = {id: newId +1, titolo, contenuto, immagine, tags};
+    posts.push(newPost);
+
+    console.log(newPost);
+    
+    res.json(posts);
 };
 
 const update = (req, res) => {
@@ -60,6 +72,8 @@ const destroy  = (req, res) => {
     } 
 
     posts.splice(posts.indexOf(post), 1);
+    res.sendStatus(204);
+
     console.log(posts);
 };
 
