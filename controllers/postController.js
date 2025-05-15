@@ -57,12 +57,10 @@ const destroy  = (req, res) => {
         message: 'Nessun post trovato'
     })
     return;
-    }
+    } 
 
     posts.splice(posts.indexOf(post), 1);
-    console.log(`Eliminato post con indice ${post.id}`);
-    
-    res.json(post);
+    console.log(posts);
 };
 
 module.exports = {index, show, store, update, modify, destroy};
