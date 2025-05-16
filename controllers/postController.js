@@ -51,11 +51,45 @@ const store = (req, res) => {
 };
 
 const update = (req, res) => {
-    res.json(`modifica totale del post ${req.params.id}`);
+    const id = parseInt(req.params.id);
+
+    const post = posts.find(post => post.id === id);
+
+    if(post === undefined) {
+        res.status(404);
+        res.json({
+            message: 'Nessun post trovato'
+        })
+        return;
+    }
+
+    post.titolo = req.body.titolo;
+    post.contenuto = req.body.contenuto;
+    post.immagine = req.body.immagine;
+    post.tags = req.body.tags;
+    
+    res.json(posts);
 };
 
 const modify = (req, res) => {
-    res.json(`modifica parziale del post ${req.params.id}`);
+    const id = parseInt(req.params.id);
+
+    const post = posts.find(post => post.id === id);
+
+    if(post === undefined) {
+        res.status(404);
+        res.json({
+            message: 'Nessun post trovato'
+        })
+        return;
+    }
+
+    post.titolo = req.body.titolo ? req.body.titolo : post.titolo;
+    post.contenuto = req.body.contenuto ? req.body.contenuto : post.contenuto;
+    post.immagine = req.body.immagine ? req.body.immagine : post.immagine;
+    post.tags = req.body.tags ? req.body.tags : post.tags;
+    
+    res.json(posts);
 };
 
 const destroy  = (req, res) => {
