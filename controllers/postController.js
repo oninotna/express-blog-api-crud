@@ -3,7 +3,7 @@ const {posts} = require('../data/posts.js');
 const index = (req, res) => {
     let filteredPosts = posts;
 
-    if(req.query.titolo) {
+    if(req.queryFake.titolo) {
         filteredPosts = posts.filter(post => post.titolo.includes(req.query.titolo));
     };
 
@@ -22,14 +22,6 @@ const show = (req, res) => {
     const id = parseInt(req.params.id);
 
     const post = posts.find(post => post.id === id);
-
-    if(post === undefined) {
-        res.status(404);
-        res.json({
-            message: 'Nessun post trovato'
-        })
-        return;
-    }
     
     res.json(post);
 };
